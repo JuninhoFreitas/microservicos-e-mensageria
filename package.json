@@ -1,0 +1,34 @@
+{
+  "name": "example-of-messenger",
+  "version": "0.0.1",
+  "description": "An example messenger service",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./shopping"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuninhoFreitas/microservicos-e-mensageria.git"
+  },
+  "keywords": [
+    "node-js",
+    "examples",
+    "queues",
+    "messenger",
+    "rabbitmq"
+  ],
+  "author": "JuninhoFreitas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuninhoFreitas/microservicos-e-mensageria/issues"
+  },
+  "homepage": "https://github.com/JuninhoFreitas/microservicos-e-mensageria#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

@@ -1,25 +1,39 @@
-version: '3'
+version: '3.4'
 
 services:
-  nodejs:
+  inventory:
+    image: inventory
     build:
       context: .
-      dockerfile: Dockerfile
-    image: nodejs
-    container_name: nodejs
-    env_file: .env
+      dockerfile: ./inventory/Dockerfile
     environment:
-      - MONGO_USERNAME=$MONGO_USERNAME
-      - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=db
-      - MONGO_PORT=$MONGO_PORT
-      - MONGO_DB=$MONGO_DB 
-      - PORT=3000
+      NODE_ENV: dev
+      PORT: 3001
+      MICROSERVICE_NAME: inventory
     ports:
-      - "3000:3000"
+      - 3001:3001
+  shopping:
+    image: shopping
+    build:
+      context: .
+      dockerfile: ./shopping/Dockerfile
+    environment:
+      NODE_ENV: dev
+      PORT: 3000
+      MICROSERVICE_NAME: shopping
+    ports:
+      - 3000:3000      
+  rabbitmq:
+    image: rabbitmq:3.7.15-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-      - app-network
-    command: /home/node/app/node_modules/.bin/nodemon shopping/index.js
+        - rabbitmq_net
+networks:
+  rabbitmq_net:
+    driver: bridge            
